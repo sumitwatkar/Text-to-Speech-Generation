@@ -7,14 +7,15 @@ def get_accent(user_input):
     
     try:
         accent_input = {
-            'Irish': 'ie',
-            'South African': 'co.za',
-            'Indian': 'co.in',
+    
+            'American': 'us',
             'Australian': 'com.au',
-            'Canadian': 'ca',
             'British': 'co.uk',
+            'Canadian': 'ca',
+            'Indian': 'co.in',
             'Spanish': 'es'
         }
+
         tld = accent_input.get(user_input)
         return tld
     
@@ -26,8 +27,8 @@ def get_accent(user_input):
 def get_accent_message():
     
     try:
-        accent = ['Irish', 'South Africa',  'Indian','Australian', 
-                  'Canadian',  'British','Spanish' ]
+        accent = ['American', 'Australian', 'British', 
+                  'Canadian', 'Indian', 'Spanish']
         return accent
     
     except Exception as e:

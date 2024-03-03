@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<title>Text to Speech Project</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet"
+		type="text/css">
+	<style>
+		body {
+			font-family: Lato, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+		}
+
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6 {
+			font-family: Lato, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+			font-weight: 700;
+		}
+
+		.title {
+			color: #273582;
+		}
+
+		#fetch {
+			cursor: pointer;
+		}
+
+		#stopfetch {
+			cursor: pointer;
+		}
+
+		#fetch:hover,
+		#fetch:active,
+		#fetch:focus,
+		#stopfetch:hover,
+		#stopfetch:active,
+		#stopfetch:focus {
+			background-color: #ff7f00;
+			border-color: #ff7f00;
+		}
+
+		footer.footer {
+			padding-top: 1rem;
+			padding-bottom: 1rem;
+			background-color: #e3e8ed !important;
+		}
+
+		footer a {
+			color: #000;
+			font-weight: 600;
+			text-decoration: none;
+		}
+
+		footer li a:hover {
+			color: orange;
+		}
+
+		footer li i {
+			color: #363e75;
+		}
+
+		footer li i:hover {
+			color: orange;
+		}
+
+		.navbar-light .navbar-brand {
+			color: rgba(0, 0, 0, .9);
+		}
+
+		.navbar-light .navbar-brand {
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		.container-fluid {
+			width: 90%;
+		}
+
+		.load {
+			height: 100%;
+			background-color: #ffffffbe;
+			position: absolute;
+			width: 100%;
+			z-index: 1000;
+			display: none;
+		}
+
+		.loader {
+			border: 10px solid #f3f3f3;
+			border-radius: 50%;
+			border-top: 10px solid #3498db;
+			width: 30px;
+			height: 30px;
+			margin-left: auto;
+			margin-right: auto;
+			margin-top: 30%;
+			-webkit-animation: spin 2s linear infinite;
+			/* Safari */
+			animation: spin 2s linear infinite;
+		}
+
+		/* Safari */
+		@-webkit-keyframes spin {
+			0% {
+				-webkit-transform: rotate(0deg);
+			}
+
+			100% {
+				-webkit-transform: rotate(360deg);
+			}
+		}
+
+		@keyframes spin {
+			0% {
+				transform: rotate(0deg);
+			}
+
+			100% {
+				transform: rotate(360deg);
+			}
+		}
+
+		@media (min-width:768px) {
+			header.masthead {
+				padding-top: 4rem;
+				padding-bottom: 4rem;
+			}
+
+			header.masthead h1 {
+				font-size: 3rem;
+			}
+		}
+
+		.res-container {}
+
+		.result-box {
+			width: 80%;
+			margin-left: auto;
+			margin-right: auto;
+			height: 260px;
+			padding: 10px;
+		}
+
+		#loading {
+			position: fixed;
+			left: 0px;
+			top: 0px;
+			width: 100%;
+			height: 100%;
+			z-index: 9999999999;
+			overflow: hidden;
+			background: rgba(255, 255, 255, 0.7);
+		}
+
+		.loader {
+			border: 8px solid #f3f3f3;
+			border-top: 8px solid #363e75;
+			border-radius: 50%;
+			width: 60px;
+			height: 60px;
+			left: 50%;
+			margin-left: -4em;
+			display: block;
+			animation: spin 2s linear infinite;
+		}
+
+		.loader,
+		.loader:after {
+			display: block;
+			position: absolute;
+			top: 50%;
+			margin-top: -4.05em;
+		}
+
+		@keyframes spin {
+			0% {
+				transform: rotate(0deg);
+			}
+
+			100% {
+				transform: rotate(360deg);
+			}
+		}
+
+		.footer {
+			position: absolute;
+			bottom: 0px;
+			width: 100%;
+		}
+
+		#datafetch_form {
+			padding: 0px 40px;
+		}
+
+		.json-result audio {
+			margin-top: 17%;
+		}
+
+		.logo-hidden-1 {
+        position: fixed;
+        z-index: 20;
+        width: 50px;
+        opacity: 0;
+        top: 0;
+        left: 0;
+      }
+
+      .logo-hidden-2 {
+        position: fixed;
+        z-index: 20;
+        width: 50px;
+        opacity: 0;
+        top: 0;
+        right: 0;
+      }
+
+      .logo-hidden-3 {
+        position: fixed;
+        z-index: 20;
+        width: 50px;
+        opacity: 0;
+        bottom: 0;
+        left: 0;
+      }
+
+      .logo-hidden-4 {
+        position: fixed;
+        z-index: 20;
+        width: 50px;
+        opacity: 0;
+        bottom: 0;
+        right: 0;
+      }
+      .logo-hidden-1:hover,
+      .logo-hidden-2:hover,
+      .logo-hidden-3:hover,
+      .logo-hidden-4:hover {
+        opacity: 1;
+      }
+	</style>
+</head>
+
+	<!-- Navigation -->
+	<nav class="navbar navbar-light bg-light static-top">
+		<div class="container-fluid">
+	</nav>
+
+	<!-- Testimonials -->
+	<section class="testimonials text-center">
+		<div class="container-fluid">
+			<h4 class="my-5 title">Text to Speech Generation</h4>
+			<div class="mb-3">
+				<form action="/predict" method="post" name="accent_form">
+
+				</form>
+				</select>
+			</div>
+			<form method="post" id="datafetch_form" enctype="multipart/form-data">
+				
+			<div class="row d-flex mb-0 justify-content-center gap-5">
+				<textarea class="form-control" style="width: 60%;"  rows="8" id="comment"></textarea>
+				<div class="json-result">
+				</div>
+			</div>
+			
+			<div class="mt-5">
+				<label for="accent">Select English Accent</label>
+						<select class="form-id mb-5 ml-3" id="form-id-accent" name="accent" placeholder="accent" required="required"
+							>
+							<option value="" disabled selected>Which English accent do you want?</option>
+							{% for accent in accent_list %}
+							<option value="{{accent}}">{{accent}}</option>
+							{% endfor %}
+						</select>
+				<div class=""><button class="form-control btn-primary mb-5" id="fetch"
+					type="submit">Predict</button></div>
+			</div>
+			</form>
+		</div>
+		
+	</section>
+
+	<div id="loading">
+		<div class="loader"></div>
+	</div>
+	<!-- Bootstrap core JavaScript -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+	<script>
+
+		$(document).ready(function () {
+			$('#loading').hide();
+			$("#fetch").click(function (e) {
+				e.preventDefault();
+				var input = $('#comment').val();
+				var val = $('#form-id-accent').val();
+				$('#loading').show();
+				$.ajax({
+					url: "../predict",   //change url
+					type: "post",
+					mode: 'no-cors',
+					crossdomain: true,
+					withCredentials: false,
+					credentials:'same-origin',
+					headers: {
+						'Content-Type': 'application/json;charset=UTF-8',
+						"Access-Control-Allow-Origin": "*"
+					},
+					data: JSON.stringify({data: input, accent:val}),
+					success: function (response) {
+						$(".json-result").html("");
+						$(".json-result").html('<audio id="audio" controls="controls"><source id="audioSource" src=""></source>Your browser does not support the audio format.</audio>');
+						var audio = document.getElementById('audio');
+						var source = document.getElementById('audioSource');
+						var audioFile = "data:audio/wav;base64," + response.data;
+						source.src = audioFile;
+						audio.load();
+						$('#loading').hide();
+					}
+
+				});
+
+			});
+		});
+	</script>
+</body>
+
+</html>
