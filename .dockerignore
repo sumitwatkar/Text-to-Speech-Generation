@@ -1,0 +1,7 @@
+text_to_speech\artifact\
+env
+logs
+infrastructure
+sensor.egg-info
+LICENSE
+README.md
