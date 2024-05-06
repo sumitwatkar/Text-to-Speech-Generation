@@ -1,12 +1,12 @@
 # Text to Speech Generation using CICD
 
-## Overview
+## Overview:
 
 - The Text-to-Speech (TTS) project is a Python-based application that converts written text into clear and natural speech output. Supporting multiple languages, the application leverages the Google Text-to-Speech (GTTS) library to synthesize speech from text, making it suitable for a variety of use cases including assisting visually impaired users, language learners, and individuals who prefer to consume textual content in an auditory format.
 
 - The project adopts continuous integration and continuous deployment (CICD) practices to streamline the development and deployment process, allowing for efficient testing and deployment of the application.
 
-## Methodologies
+## Methodologies:
 
 **1. Application Development**: Built the TTS application using Python and the GTTS library, optimizing the synthesis process for high-quality speech generation and implementing error handling for smooth user interactions.
 
@@ -24,7 +24,7 @@
 * **Containerization**: Docker
 * **Deployment & Infrastructure**: Amazon EC2, Amazon ECR
 
-## Outcomes
+## Outcomes:
 
 **1. Streamlined Development**: The CICD pipeline automates code linting, testing, building, and deployment, offering a smooth development lifecycle.
 
