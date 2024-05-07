@@ -16,7 +16,7 @@
 
 **4. Infrastructure Management**: Managed deployment and infrastructure using AWS services, deploying Docker images to Amazon Elastic Container Registry (ECR) for seamless integration and hosting the application on AWS Amazon instances for scalability and flexibility.
 
-## Technologies and Tools Used:
+## Tools and Technologies Used:
 
 * **Libraries**: GTTS, numpy, pandas
 * **Web Framework**: Flask
